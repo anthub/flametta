@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Flametta, the worlds best tinder bot</title>
+</head>
+<body>
+You have arrived 2.0!
+	<script>
+		console.log("Hello from index.html");
+		// Listen you CRX event
+		document.addEventListener('csEvent', function (event) {
+			var data = event.detail;
+			console.log("data: " + data.tinderToken);
+
+			// Do something with you data from CRX
+		});
+
+	</script>
+</body>
+</html>
