@@ -17,7 +17,7 @@
    "content_scripts":[
     {
       "matches":["http://flametta.com/*"],
-      "js": ["messenger.js"]
+      "js": ["jquery-2.1.4.min.js", "messenger.js"]
     }
   ],
   "permissions": [

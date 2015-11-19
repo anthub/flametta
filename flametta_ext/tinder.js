@@ -45,7 +45,7 @@ function tinderLoginSuccess(response){
   var resp = JSON.parse(response);
   console.log("response: " + resp);
   console.log("Response token: " + resp.token);
-  chrome.tabs.sendMessage(parseInt(localStorage.tabId), {"tinderToken": resp.token}, function(response) {
+  chrome.tabs.sendMessage(parseInt(localStorage.tabId), {"action": "tinderlogin", "tinderToken": resp.token}, function(response) {
       //chrome.tabs.create({ url: "http://"+response.farewell+".com"});
       console.log("message response: "+ response.farewell);
   });
