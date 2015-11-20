@@ -21,11 +21,16 @@ return $response;
 // $arr = $_POST['facebook_token'] + $_POST['facebook_id'];
 
 //echo print_r($_POST['postData']);
+
 $url = $_POST['endPointURL'];
 $data = json_encode($_POST['postData']);
 $header = json_encode($_POST['headers']);
+$type = $_POST['method'];
 
-echo(post($url, $data, $header));
+if($type == 'post'){
+	echo(post($url, $data, $header));
+	
+}
 
 
 ?>

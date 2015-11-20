@@ -27,6 +27,7 @@ function tinderLogin(token, id){
       //   'platform':'ios'
       // },
       data:{
+        'method':'post',
         'postData':myPostData,
         'endPointURL':'https://api.gotinder.com/auth',
         'headers':customHeaders
