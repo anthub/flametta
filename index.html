@@ -1,19 +1,16 @@
 <html>
 <head>
 <title>Flametta, the worlds best tinder bot</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/tinderscript.js"></script>
 </head>
-<body>
+<body ng-app="flamettaApp">
 You have arrived 2.0!
-	<script>
-		console.log("Hello from index.html");
-		// Listen you CRX event
-		document.addEventListener('csEvent', function (event) {
-			var data = event.detail;
-			console.log("data: " + data.tinderToken);
-
-			// Do something with you data from CRX
-		});
-
-	</script>
+	<div ng-view></div>
+		
 </body>
 </html>
