@@ -10,6 +10,10 @@ flamettaApp.config(['$routeProvider',
         templateUrl: 'route/welcome.html',
         controller: 'welcomeCtrl'
       }).
+      when('/matches', {
+        templateUrl: 'route/matches.html',
+        controller: 'matchesCtrl'
+      }).
       when('/profile', {
         templateUrl: 'route/profile.html',
         controller: 'profileCtrl'
