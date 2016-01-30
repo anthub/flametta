@@ -32,15 +32,24 @@ flamettaCtrl.controller('matchesCtrl', ['$scope', function($scope){
 		  	
 		});
 		console.log($scope.matches.matches.length);
-		getMatchData(0, $scope.matches.matches[0].person._id);
-
+		//getMatchData(0, $scope.matches.matches[0].person._id);
+		//filter those online in last two days
 		/*
+		var pastDate = new Date();
+		pastDate.setDate(pastDate.getDate() - 2);
+		console.log("One Week Ago: "+ pastDate);
 		 for(i=0; i<$scope.matches.matches.length; i++){
 		  	console.log("match: " + i);
-		  	getMatchData($scope.matches.matches[i].person._id);
+		  	if((new Date($scope.matches.matches[i].person.ping_time).getTime()) > (new Date(pastDate).getTime())){
+		  		getMatchData(i, $scope.matches.matches[i].person._id);
+
+		  	}else{console.log("last ping was a week ago");}
+
+		  	
 
 		  }
 		  */
+		  
 	  	//console.log(response);
 	  	//var response = JSON.stringify(response);
 			//alert(response);
@@ -64,7 +73,7 @@ flamettaCtrl.controller('matchesCtrl', ['$scope', function($scope){
 				response = JSON.parse(response);
 				console.log(response);
 				$scope.matches.matches[index].ping_time = response.results.ping_time;
-				console.log($scope.matches.matches[0].ping_time);
+				console.log($scope.matches.matches[index].ping_time);
 			}
 		});
 
@@ -89,7 +98,12 @@ flamettaCtrl.controller('matchesCtrl', ['$scope', function($scope){
 
 }]);
 
+flamettaCtrl.controller('messageCtrl', ['$scope', '$routeParams', function($scope, $routeParams){
+	$scope.matchId = $routeParams.matchId;
+	console.log("Getting Message Data for userID: " + $scope.matchId);
 
+
+}]);
 
 
 flamettaCtrl.controller('profileCtrl', ['$scope', function($scope){

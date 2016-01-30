@@ -18,6 +18,10 @@ flamettaApp.config(['$routeProvider',
         templateUrl: 'route/profile.html',
         controller: 'profileCtrl'
       }).
+      when('/messages/:matchId', {
+        templateUrl: 'route/messages.html',
+        controller: 'messageCtrl'
+      }).
       otherwise({
         redirectTo: '/welcome'
       });
