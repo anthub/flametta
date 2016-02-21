@@ -6,7 +6,7 @@
 		<th>IMG</th><th>Name</th><th>Age</th><th>Ping Time</th><th>Last Activity</th>
 	</tr>
 	<tr ng-repeat="match in matches.matches | orderBy:orderByVar:reverse">
-		<td><a href="#/messages/{{match.person._id}}" class="thumb"><img ng-src="{{match.person.photos[0].url}}" alt="image" height="100" width="100" /></a></td>
+		<td><a href="#/messages/{{match._id}}" class="thumb"><img ng-src="{{match.person.photos[0].url}}" alt="image" height="100" width="100" /></a></td>
 		<td>{{match.person.name}}</td>
 		<td>{{match.person.birth_date | date:'yyyy-MM-dd'}}</td>
 		<td>{{match.person.ping_time | date: 'yyyy-MM-dd HH:mm'}}</td>

@@ -3,5 +3,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 function callBack(tab){
 	localStorage.tabId = tab.id;
-	initIFrame();
+	initIFrame()
+	setInterval(function() { initIFrame(); }, 300000);
 }

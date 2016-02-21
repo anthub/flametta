@@ -1,0 +1,12 @@
+<table style="width:100%">
+	<tr>
+		<th>IMG</th><th>message</th><th>time</th>
+	</tr>
+	<tr ng-repeat="message in match.messages">
+		<td ng-if="match.person._id == message.from"><img ng-src="{{match.person.photos[0].url}}" alt="image" height="50" width="50" /></td>
+		<td ng-if="match.person._id != message.from">Me</td>
+		<td>{{message.message}}</td>
+		<td>{{message.sent_date |  date: 'yyyy-MM-dd HH:mm'}}
+
+	</tr>
+</table>

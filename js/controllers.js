@@ -1,83 +1,18 @@
 var flamettaCtrl = angular.module('flamettaCtrl', []);
 
-flamettaCtrl.controller('matchesCtrl', ['$scope', function($scope){
+flamettaCtrl.controller('matchesCtrl', ['$scope', 'Poller', function($scope, Poller){
 	console.log("Matches Controller");
 	//2014-12-01T00:00:00.002Z
 	//$scope.date = new Date(); 
 
 
-	var myPostData = {"last_activity_date":""};
-	$.ajax({
-	  url: 'http://flametta.com/proxy.php',
-	  type: 'post',
-	  data:{
-	    'method':'post',
-	    'postData': myPostData,
-	    'endPointURL':'https://api.gotinder.com/updates',
-	    'token':localStorage.tinderToken
-	  },
-	  success: function(response){
-	  	console.log("Success");
-	  	response = JSON.parse(response);
-	  	
-	  	console.log(response);
-	  	
-	  	$scope.$apply(function() {
-		  $scope.matches = response;
-		  $scope.orderByVar = "last_activity_date";
-		  $scope.mySwitch = false;
-	 	  $scope.reverse = true;
-		  $scope.myReverseSwitch = true;
-		  
-		  	
-		});
-		console.log($scope.matches.matches.length);
-		//getMatchData(0, $scope.matches.matches[0].person._id);
-		//filter those online in last two days
-		/*
-		var pastDate = new Date();
-		pastDate.setDate(pastDate.getDate() - 2);
-		console.log("One Week Ago: "+ pastDate);
-		 for(i=0; i<$scope.matches.matches.length; i++){
-		  	console.log("match: " + i);
-		  	if((new Date($scope.matches.matches[i].person.ping_time).getTime()) > (new Date(pastDate).getTime())){
-		  		getMatchData(i, $scope.matches.matches[i].person._id);
-
-		  	}else{console.log("last ping was a week ago");}
-
-		  	
-
-		  }
-		  */
-		  
-	  	//console.log(response);
-	  	//var response = JSON.stringify(response);
-			//alert(response);
-	  }
-	})
-	function getMatchData(index, userID){
-		console.log("ID: " + userID);
-		myPostData = null;
-		url =  'https://api.gotinder.com/user/'+userID;
-		$.ajax({
-			url: 'http://flametta.com/proxy.php',
-			type: 'post',
-			data:{
-				'method':'get',
-				'postData': myPostData,
-				'endPointURL': url,
-				'token':localStorage.tinderToken
-			},
-			success: function(response){
-				console.log("Success");
-				response = JSON.parse(response);
-				console.log(response);
-				$scope.matches.matches[index].ping_time = response.results.ping_time;
-				console.log($scope.matches.matches[index].ping_time);
-			}
-		});
-
-	}
+	$scope.matches = Poller.data.response;
+	//$scope.matches = $scope.data.response;
+	$scope.orderByVar = "last_activity_date";
+  	$scope.mySwitch = false;
+	$scope.reverse = true;
+  	$scope.myReverseSwitch = true;
+  	console.log($scope.matches.matches.length);
 
 	$scope.toggle = function(){
 		if($scope.mySwitch){
@@ -98,9 +33,62 @@ flamettaCtrl.controller('matchesCtrl', ['$scope', function($scope){
 
 }]);
 
-flamettaCtrl.controller('messageCtrl', ['$scope', '$routeParams', function($scope, $routeParams){
+flamettaCtrl.controller('messageCtrl', ['$scope', '$routeParams', 'Poller', function($scope, $routeParams, Poller){
 	$scope.matchId = $routeParams.matchId;
 	console.log("Getting Message Data for userID: " + $scope.matchId);
+	$scope.matches = Poller.data.response.matches;
+	var match = null;
+	console.log($scope.matches.length);
+	for(var i=0, len = $scope.matches.length; i < len; i++){
+		if($scope.matches[i]._id == $scope.matchId){
+			$scope.match = $scope.matches[i];
+			console.log("found user id: " + $scope.matchId + " to index: " + i);
+			console.log($scope.match);
+			break;
+		}
+	}
+
+
+	//getMatchData($scope.matchId);
+
+
+	function getMatchData(userID){
+		console.log("ID: " + userID);
+		var myPostData = {"last_activity_date":""};
+		url =  'https://api.gotinder.com/updates';
+		$.ajax({
+			url: 'http://flametta.com/proxy.php',
+			type: 'post',
+			data:{
+				'method':'post',
+				'postData': myPostData,
+				'endPointURL': url,
+				'token':localStorage.tinderToken
+			},
+			success: function(response){
+				console.log("Success");
+				response = JSON.parse(response);
+				console.log(response);
+
+				var match = null;
+		  		for(var i=0, len = response.matches.length; i < len; i++){
+		  			if(response.matches[i]._id == userID){
+		  				match = response.matches[i];
+		  				console.log("found user id: " + userID + " to index: " + i);
+		  				console.log(match);
+		  				break;
+		  			}
+		  		}
+		  		$scope.$apply(function() {
+		  			$scope.matches = response;
+		  			$scope.match = match;	  		
+		  		});
+				//$scope.matches.matches[index].ping_time = response.results.ping_time;
+				//console.log($scope.matches.matches[index].ping_time);
+			}
+		});
+
+	}
 
 
 }]);

@@ -10,7 +10,8 @@ document.addEventListener('csEvent', function (event) {
 	//Get profile data
     var myPostData = null;
     console.log("Change to profile");
-    location.assign("http://flametta.com/#/profile")
+    //ocation.assign("http://flametta.com/#/profile")
+    
 	  //var dataString = JSON.stringify(postData);
 
 	  //var endPointURL = {'url':'https://api.gotinder.com/profile'}
