@@ -59,6 +59,13 @@ flamettaApp.factory('Poller', function($http, $timeout){
           //only update the data object if we have more than 1 match
           if(response.matches.length > 0){
             data.response = response;
+            if(data.calls == 0){
+              localStorage.matchData = response;
+
+              
+            }
+            else{data.calls = -1;}
+
             
             console.log(data.response);
           }

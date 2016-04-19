@@ -36,6 +36,7 @@ flamettaCtrl.controller('matchesCtrl', ['$scope', 'Poller', function($scope, Pol
 flamettaCtrl.controller('messageCtrl', ['$scope', '$routeParams', 'Poller', function($scope, $routeParams, Poller){
 	$scope.matchId = $routeParams.matchId;
 	console.log("Getting Message Data for userID: " + $scope.matchId);
+	$scope.message = "";
 	$scope.matches = Poller.data.response.matches;
 	var match = null;
 	console.log($scope.matches.length);
@@ -47,7 +48,27 @@ flamettaCtrl.controller('messageCtrl', ['$scope', '$routeParams', 'Poller', func
 			break;
 		}
 	}
+	$scope.sendMessage = function(){
+		console.log("sending message: " + $scope.message);
 
+		var myPostData = {"message":$scope.message};
+		url =  'https://api.gotinder.com/user/matches/'+$scope.matchId;
+		$.ajax({
+			url: 'http://flametta.com/proxy.php',
+			type: 'post',
+			data:{
+				'method':'post',
+				'postData': myPostData,
+				'endPointURL': url,
+				'token':localStorage.tinderToken
+			},
+			success: function(response){
+				console.log("Success");
+				response = JSON.parse(response);
+				console.log(response);
+			}
+		});
+	}
 
 	//getMatchData($scope.matchId);
 

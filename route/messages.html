@@ -1,7 +1,4 @@
 <table style="width:100%">
-	<tr>
-		<th>IMG</th><th>message</th><th>time</th>
-	</tr>
 	<tr ng-repeat="message in match.messages">
 		<td ng-if="match.person._id == message.from"><img ng-src="{{match.person.photos[0].url}}" alt="image" height="50" width="50" /></td>
 		<td ng-if="match.person._id != message.from">Me</td>
@@ -10,3 +7,20 @@
 
 	</tr>
 </table>
+<div class="container">
+	<form ng-submit="sendMessage()">
+		<!-- message box -->
+		<div id="message-group" class="form-group">
+			<label>Message</label>
+			<input type="text" ng-model="message" name="message" class="form-control input-lg" maxlength="1024" placeholder="Type funny message here...">
+		</div>
+		<!-- submit button -->
+		<button type="submit" id="submit" value="Submit" class="btn btn-success btn-lg btn-block">
+			<span class="glyphicon glyphicon-flash"></span>Send!
+		</button>
+	</form>
+
+
+</div>
+
+
